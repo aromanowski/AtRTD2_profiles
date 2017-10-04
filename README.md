@@ -56,7 +56,7 @@ if(length(required.packages)>0) install.packages(, dependencies=TRUE)
 ```
 
 ### **Download source codes and data**
-The source codes and transcript TPM expression data are available at: xxx.com. It includes three files: 
+The source codes and transcript TPM expression data are available at: https://github.com/wyguo/AtRTD2_profiles/blob/master/dataset.zip?raw=true. It includes three files: 
 
 - data.exp.RData
 - server.R
