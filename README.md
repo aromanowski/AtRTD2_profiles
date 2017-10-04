@@ -37,7 +37,7 @@ This dashboard includes three sidebar menus (left-hand side of the webpage):
     + _Profile in TPM:_ A data table of expression profiles in TPM (transcript per million). Users can type a gene ID to check individual gene/transcript information.
 3. **Contact us:** contact details.
 
-The dashboard can be directly accessed in the Shiny Apps webpage: https://wyguo.shinyapps.io/atrtd2_profile_app/. However, the free service to hold the dashboard only allows 25 hours of active use per week. In case of not being able to access the service, the same data and Shiny app is also available for access for R users. The R source code of the dashboard and a user manual is also available on Github: xxxx.
+The dashboard can be directly accessed in the Shiny Apps webpage: https://wyguo.shinyapps.io/atrtd2_profile_app/. However, the free service to hold the dashboard only allows 25 hours of active use per week. In case of not being able to access the service, the same data and Shiny app is also available for access for R users. The R source code of the dashboard and a user manual is also available on Github: https://github.com/wyguo/AtRTD2_profiles.
 
 ## **Mode 2: Command lines**
 
