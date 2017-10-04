@@ -21,13 +21,6 @@ output:
       smooth_scroll: yes
 ---
 
-
-<style>
-body {
-text-align: justify}
-</style>
-
-
 ## **Mode 1: Shiny dashboard--Web App**
 The Shiny dashboard is a graphical interface to visualize the gene and transcript expression profiles of RNA-seq data in <u>t</u>ranscripts <u>p</u>er <u>m</u>illion (TPM) for Manscript “Rapid and dynamic alternative splicing impacts the Arabidopsis cold response”. Deep RNA-seq data was generated on a diel time-course of 5-week old Arabidopsis Col-0 plants transferred from 20°C to 4°C. Arabidopsis rosettes were harvested every three hours from the last day at 20°C, and the first and fourth day following transfer to 4°C, totalling 26 time-points. Three biological repeats generated over 9.5 billion raw paired-end reads giving around 366 M paired-end reads per time-point. Individual transcripts were quantified in TPM units using Salmon (Patro et al., 2017) and AtRTD2-QUASI as reference transcriptome (Zhang et al., 2017). During the review process, access is password protected:
 
