@@ -1731,6 +1731,25 @@ trait.analysis<-function(data2ana,clusters,traits,hclust.method='average',label=
 
 # Session Information
 ```{r session, echo=FALSE,eval=T}
-sessionInfo()
-
+## R version 3.4.0 (2017-04-21)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 7 x64 (build 7601) Service Pack 1
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=English_United Kingdom.1252 
+## [2] LC_CTYPE=English_United Kingdom.1252   
+## [3] LC_MONETARY=English_United Kingdom.1252
+## [4] LC_NUMERIC=C                           
+## [5] LC_TIME=English_United Kingdom.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## loaded via a namespace (and not attached):
+##  [1] compiler_3.4.0  backports_1.1.0 magrittr_1.5    rprojroot_1.2  
+##  [5] tools_3.4.0     htmltools_0.3.6 yaml_2.1.14     Rcpp_0.12.12   
+##  [9] stringi_1.1.5   rmarkdown_1.5   knitr_1.16      stringr_1.2.0  
+## [13] digest_0.6.12   evaluate_0.10
 ```
