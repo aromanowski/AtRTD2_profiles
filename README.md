@@ -66,14 +66,14 @@ if(length(required.packages)>0) install.packages(required.packages, dependencies
 
 ### **Download source codes and data**
 The source codes and transcript TPM expression data are available at: 
-https://github.com/wyguo/AtRTD2_profiles/blob/master/dataset.zip?raw=true. 
+https://github.com/wyguo/AtRTD2_profiles/tree/master/Dashboard. 
 It includes three files: 
 
 - data.exp.RData
 - server.R
 - ui.R 
 
-Please save and unzip the files to a local folder. Subsequently, setting the R working directory to this folder.
+Please save the files to a local folder. Subsequently, setting the R working directory to this folder.
 
 ### **Open the Dashboard in command line**
 The Shiny Dashboard to visualize expression profiles in **Mode 1** can be opened in command line:
