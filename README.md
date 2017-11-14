@@ -26,10 +26,6 @@ output:
 body {
 text-align: justify}
 </style>
-
-# **R source code of DE and DAS analysis**
-The R source code of differential expression (DE) and differential alternative splicing (DAS) analysis pipeline for the paper “Rapid and dynamic alternative splicing impacts the Arabidopsis cold response” is in the file "DE and DAS analysis R codes for AtRTD2 RNA-seq.Rmd" of this Github page: https://github.com/wyguo/AtRTD2_profiles. 
-
 # **Shiny Dashboard to visualize AtRTD2 expression profiles**
 ## **Mode 1: Shiny Dashboard--Web App**
 We have provide a graphical interface to visualize the gene and transcript expression profiles of RNA-seq data in <u>t</u>ranscripts <u>p</u>er <u>m</u>illion (TPM) for the paper “Rapid and dynamic alternative splicing impacts the Arabidopsis cold response”. The Dashboard can be directly accessed in the Shiny Apps webpage: https://wyguo.shinyapps.io/atrtd2_profile_app/. The research was conducted with BBSRC funding and is a collaboration between the University of Dundee, The James Hutton Institute and the University of Glasgow. The Shiny Dashboard was designed by Wenbin Guo.
