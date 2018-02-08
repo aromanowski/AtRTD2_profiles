@@ -38,10 +38,10 @@ plot_AtRTD2 <- function(data.exp,gene,
   #####################################################################
   ##prepare plot data                                                
   #####################################################################
-  
+  gene <- toupper(gene)
   trans.idx <- grep(pattern = gene,rownames(data.exp))
-  expression.sum <- if(length(trans.idx)==1) sum(data.exp[trans.idx,]) else rowSums(data.exp[trans.idx,])
-  trans.idx <- trans.idx[expression.sum>0]
+  # expression.sum <- if(length(trans.idx)==1) sum(data.exp[trans.idx,]) else rowSums(data.exp[trans.idx,])
+  # trans.idx <- trans.idx[expression.sum>0]
   
   if(length(trans.idx)==0)
     stop(paste0(gene, ' is invalid'))
@@ -190,7 +190,7 @@ LoginPass <- 0; #0: not attempted, -1: failed, 1: passed
 login <- box(title = h4("Login to enable plot"),
              textInput(inputId = "userName",value = 'user',label = "Username (user)"),
              # passwordInput("passwd", "Password (test)"),
-             passwordInput("passwd", "Password",value = 'AtRTD2profiles'),
+             passwordInput("passwd", "Password",value = ""),
              br(),
              actionButton("Login", "Login"),
              width = 3)
@@ -229,11 +229,63 @@ sidebar <- dashboardSidebar(
 mainbody <- dashboardBody(
   tabItems(
     tabItem("introduction",
+            fluidRow(
+              column(width = 12,
+                     box(title=NULL,
+                         width = NULL,status = 'primary', solidHeader = F,
+                         shiny::uiOutput('page1')
+                     )
+              )
+            ) ,
+            fluidRow(
+              column(width = 6,
+                     box(title=NULL,height = 550,
+                         width = NULL,status = 'primary', solidHeader = F,
+                         h3('Note A'),
+                         HTML('<h4>A good example: <strong>e.g. AT1G01060</strong></h4>'),
+                         tags$br(),
+                         plotOutput("note_profile_plot0")
+                     )
+              ),
+              column(width = 6,
+                     box(title=NULL,height = 550,
+                         width = NULL,status = 'primary', solidHeader = F,
+                         h3('Note B (treat such data with caution)'),
+                         HTML('<h4>If your gene is not expressed in the experiment, you will see an image like: <strong>e.g. AT1G01073</strong></h4>'),
+                         tags$br(),
+                         plotOutput("note_profile_plot1")
+                         
+                     )
+              )
+            ),
+            fluidRow(
+              column(width = 6,
+                     box(title=NULL,height = 550,
+                         width = NULL,status = 'primary', solidHeader = F,
+                         h3('Note C (treat such data with caution)'),
+                         HTML('<h4>For same genes, expression is very low (e.g < 0.25 TPM) and may only be seen in a 
+                              small number of time-points: <strong>e.g. AT1G01115 and AT1G01305</strong></h4>'),
+                         tags$br(),
+                         plotOutput("note_profile_plot2")
+                         )
+              ),
+              column(width = 6,
+                     box(title=NULL,height = 550,
+                         width = NULL,status = 'primary', solidHeader = F,
+                         h3(''),
+                         tags$div('',tags$br(),'',tags$br(),'',tags$br(),'',tags$br(),'',tags$br()),
+                         plotOutput("note_profile_plot3")
+                     )
+              )
+              
+            ) 
             # div(p("Dashboard tab content"))
-            box(width = NULL, status = "primary",
-                uiOutput("page1")
-            )
-    ),
+            # box(width = NULL, status = "primary",
+            #     uiOutput("page1")
+            # )
+            # 
+            
+            ),
     tabItem("profiles",
             fluidRow(
               column(width = 10,
@@ -287,29 +339,29 @@ mainbody <- dashboardBody(
             ),
             fluidRow(
               column(6,
-                     box(width = 12, status = "primary",title = 'Contact us',
+                     box(width = 12, status = "primary",title = h3('Contact us'),
                          # div(class="section level4",h4('Address:')),
-                         div('John W. S. Brown'),
-                         div('j.w.s.brown@dundee.ac.uk'),
-                         div('Plant Sciences Division, College of Life Sciences, University of Dundee'),
-                         div('Cell and Molecular Sciences, The James Hutton Institute'),
-                         div('Invergowrie, Dundee DD2 5DA, Scotland UK')              
+                         HTML('<h4>John W. S. Brown</h4>'),
+                         HTML('<h4>j.w.s.brown@dundee.ac.uk</h4>'),
+                         HTML('<h4>Plant Sciences Division, College of Life Sciences, University of Dundee</h4>'),
+                         HTML('<h4>Cell and Molecular Sciences, The James Hutton Institute</h4>'),
+                         HTML('<h4>Invergowrie, Dundee DD2 5DA, Scotland UK</h4>')              
                      )
               ),
               column(6,
-                     box(width = 12, status = "primary",title = 'Contact us',
+                     box(width = 12, status = "primary",title = h3('Contact us'),
                          # div(class="section level4",h4('Address:')),
-                         div('Runxuan Zhang'),
-                         div('runxuan.zhang@hutton.ac.uk'),
-                         div('Information and Computational Sciences'),
-                         div('The James Hutton Institute'),
-                         div('Invergowrie, Dundee DD2 5DA, Scotland UK')
+                         HTML('<h4>Runxuan Zhang</h4>'),
+                         HTML('<h4>runxuan.zhang@hutton.ac.uk</h4>'),
+                         HTML('<h4>Information and Computational Sciences</h4>'),
+                         HTML('<h4>The James Hutton Institute</h4>'),
+                         HTML('<h4>Invergowrie, Dundee DD2 5DA, Scotland UK</h4>')
                      )
               )
             )
             
     )
-  )
+    )
   )
 
 
@@ -342,9 +394,24 @@ function(input, output) {
   output$page1 <- renderUI({
     if (USER$Logged == TRUE) {
       div(
+        # tags$div(class = "header", checked = NA,
+        #          tags$p("Ready to take the Shiny tutorial? If so"),
+        #          tags$a(href = "https://github.com/wyguo/AtRTD2_profiles", "Click Here!"),
+        #          tags$img(src="AT1G01115.png"),
+        #          tags$img(src = "AT1G01073.png", width = "100px", height = "100px")
+        # ),
+        # fluidPage(img(src = 'AT1G01073.png', height = '100px', width = '100px')),
+        # HTML('
+        #   <div id="stats_header">
+        #   Relatório de Horas
+        #   <img src="AT1G01073.png" />
+        #   </a>
+        #   </div>
+        # '),
         HTML("
              <h2>Introduction</h2>
-             <p>This dashboard is a graphical interface to visualize the gene and transcript expression profiles of RNA-seq data in <u>t</u>ranscripts <u>p</u>er <u>m</u>illion (TPM) for the paper “Rapid and dynamic alternative splicing impacts the Arabidopsis cold response”. The research was conducted with BBSRC funding and is a collaboration between the University of Dundee, The James Hutton Institute and the University of Glasgow. The Shiny Dashboard was designed by Wenbin Guo.</p>
+             <h4>
+             <p>This dashboard is a graphical interface to visualize the gene and transcript expression profiles of RNA-seq data in <u>t</u>ranscripts <u>p</u>er <u>m</u>illion (TPM) for the paper “Rapid and dynamic alternative splicing impacts the Arabidopsis cold response” (Calixto et al., 2018). The research was conducted with BBSRC funding and is a collaboration between the University of Dundee, The James Hutton Institute and the University of Glasgow. The Shiny Dashboard was designed by Wenbin Guo.</p>
              <p>Deep RNA-seq data was generated on a diel time-course of 5-week old Arabidopsis Col-0 plants transferred from 20°C to 4°C. Arabidopsis rosettes were harvested every three hours from the last day at 20°C, and the first and fourth day following transfer to 4°C, totaling 26 time-points. Three biological repeats generated over 9.5 billion raw paired-end reads giving around 366 M paired-end reads per time-point. Individual transcripts were quantified in TPM units using Salmon (Patro et al., 2017) and AtRTD2-QUASI as reference transcriptome (Zhang et al., 2017).</p>
              <p>This Dashboard includes three sidebar menus (left-hand side of the webpage):</p>
              <ol style=\"list-style-type: decimal\">
@@ -358,16 +425,20 @@ function(input, output) {
              </ul></li>
              <li><strong>Contact us:</strong> contact details.</li>
              </ol>
-             <p>However, the free service to hold the Dashboard only allows 25 hours of active use per week. In case of not being able to access the service, the same data and Shiny Dashboard are also available for access for R users. The R source code of the Dashboard and a user manual are on Github: <a href=\"https://github.com/wyguo/AtRTD2_profiles\" class=\"uri\">https://github.com/wyguo/AtRTD2_profiles</a>.</p>
+             <p>The free service to hold the Dashboard only allows 25 hours of active use per week. In case of not being able to access the service, the same data and Shiny Dashboard are also available for access for R users. The R source code of the Dashboard and a user manual are on Github: <a href=\"https://github.com/wyguo/AtRTD2_profiles\" class=\"uri\">https://github.com/wyguo/AtRTD2_profiles</a>.</p>
+             </h4>            
              </div>
              <div id=\"reference\" class=\"section level2\">
-             <h2>Reference</h2>
+             <h2>References</h2>
              <ol style=\"list-style-type: decimal\">
-             <li>Calixto et al. (submitted) Rapid and dynamic alternative splicing impacts the Arabidopsis cold response.</li>
+             <h4>
+             <li>Calixto,C.P.G. et al. (2018) Rapid and dynamic alternative splicing impacts the Arabidopsis cold response transcriptome. bioRxiv. 
+             doi: https://doi.org/10.1101/251876.</li>
              <li>Cheng,C.Y. et al. (2017) Araport11: a complete reannotation of the Arabidopsis thaliana reference genome. Plant J., 89, 789–804.</li>
              <li>Lamesch,P. et al. (2012) The Arabidopsis Information Resource (TAIR): Improved gene annotation and new tools. Nucleic Acids Res., 40.</li>
              <li>Patro,R. et al. (2017) Salmon provides fast and bias-aware quantification of transcript expression. Nat. Methods, 14, 417–419.</li>
              <li>Zhang,R. et al. (2017) A high quality Arabidopsis transcriptome for accurate transcript-level analysis of alternative splicing. Nucleic Acids Res.</li>
+             </h4>           
              </ol>
              ")
         
@@ -422,7 +493,7 @@ function(input, output) {
   plots <- eventReactive(input$plotprofiles,{
     if(is.null(data.exp()))
       return(NULL)
-    idx <- grep(pattern = substring(input$genename,1,9),data.exp()[,1])
+    idx <- grep(pattern = toupper(substring(input$genename,1,9)),data.exp()[,1])
     data2plot = data.exp()[idx,]
     rownames(data2plot) <- data2plot[,1]
     data2plot <- data.frame(data2plot[,-1])
@@ -440,7 +511,7 @@ function(input, output) {
   ### download the plot
   output$profile_download <- downloadHandler(
     file = function() {
-      paste0(input$genename,'.',input$plottype)
+      paste0(toupper(input$genename),'.',input$plottype)
     },
     content = function(file) {
       plots <- plots()
@@ -448,6 +519,70 @@ function(input, output) {
              width = 12,height = 6.5,units = 'in')
     })
   
+  
+  
+  ##notes plots
+  ######plot1
+  output$note_profile_plot0 <- renderPlot({
+    if(is.null(data.exp()))
+      return(NULL)
+    gene='AT1G01060'
+    idx <- grep(pattern =gene,data.exp()[,1])
+    data2plot = data.exp()[idx,]
+    rownames(data2plot) <- data2plot[,1]
+    data2plot <- data.frame(data2plot[,-1])
+    plots_notes <- plot_AtRTD2(data.exp = data2plot, gene = gene,y.lab = 'TPM',show.plot = F)
+    
+    if(is.null(plots_notes))
+      return(NULL)
+    grid.arrange(plots_notes$plots$profiles,plots_notes$plots$lightbar,ncol=1,heights=c(6,1))
+  })
+  
+  
+  output$note_profile_plot1 <- renderPlot({
+    if(is.null(data.exp()))
+      return(NULL)
+    gene='AT1G01073'
+    idx <- grep(pattern =gene,data.exp()[,1])
+    data2plot = data.exp()[idx,]
+    rownames(data2plot) <- data2plot[,1]
+    data2plot <- data.frame(data2plot[,-1])
+    plots_notes <- plot_AtRTD2(data.exp = data2plot, gene = gene,y.lab = 'TPM',show.plot = F)
+    
+    if(is.null(plots_notes))
+      return(NULL)
+    grid.arrange(plots_notes$plots$profiles,plots_notes$plots$lightbar,ncol=1,heights=c(6,1))
+  })
+  
+  output$note_profile_plot2 <- renderPlot({
+    if(is.null(data.exp()))
+      return(NULL)
+    gene='AT1G01115'
+    idx <- grep(pattern =gene,data.exp()[,1])
+    data2plot = data.exp()[idx,]
+    rownames(data2plot) <- data2plot[,1]
+    data2plot <- data.frame(data2plot[,-1])
+    plots_notes <- plot_AtRTD2(data.exp = data2plot, gene = gene,y.lab = 'TPM',show.plot = F)
+    
+    if(is.null(plots_notes))
+      return(NULL)
+    grid.arrange(plots_notes$plots$profiles,plots_notes$plots$lightbar,ncol=1,heights=c(6,1))
+  })
+  
+  output$note_profile_plot3 <- renderPlot({
+    if(is.null(data.exp()))
+      return(NULL)
+    gene='AT1G01305'
+    idx <- grep(pattern =gene,data.exp()[,1])
+    data2plot = data.exp()[idx,]
+    rownames(data2plot) <- data2plot[,1]
+    data2plot <- data.frame(data2plot[,-1])
+    plots_notes <- plot_AtRTD2(data.exp = data2plot, gene = gene,y.lab = 'TPM',show.plot = F)
+    
+    if(is.null(plots_notes))
+      return(NULL)
+    grid.arrange(plots_notes$plots$profiles,plots_notes$plots$lightbar,ncol=1,heights=c(6,1))
+  })
   
   ### display the profile table
   output$profile_table <- shiny::renderDataTable({
@@ -466,5 +601,3 @@ function(input, output) {
       addPopups(lng = -3.069486 , lat = 56.4581745,popup='The James Hutton Institute')
   })
 }
-
-##------end

@@ -38,10 +38,10 @@ plot_AtRTD2 <- function(data.exp,gene,
   #####################################################################
   ##prepare plot data                                                
   #####################################################################
-  
+  gene <- toupper(gene)
   trans.idx <- grep(pattern = gene,rownames(data.exp))
-  expression.sum <- if(length(trans.idx)==1) sum(data.exp[trans.idx,]) else rowSums(data.exp[trans.idx,])
-  trans.idx <- trans.idx[expression.sum>0]
+  # expression.sum <- if(length(trans.idx)==1) sum(data.exp[trans.idx,]) else rowSums(data.exp[trans.idx,])
+  # trans.idx <- trans.idx[expression.sum>0]
   
   if(length(trans.idx)==0)
     stop(paste0(gene, ' is invalid'))
@@ -190,7 +190,7 @@ LoginPass <- 0; #0: not attempted, -1: failed, 1: passed
 login <- box(title = h4("Login to enable plot"),
              textInput(inputId = "userName",value = 'user',label = "Username (user)"),
              # passwordInput("passwd", "Password (test)"),
-             passwordInput("passwd", "Password",value = 'AtRTD2profiles'),
+             passwordInput("passwd", "Password",value = ""),
              br(),
              actionButton("Login", "Login"),
              width = 3)
@@ -229,11 +229,63 @@ sidebar <- dashboardSidebar(
 mainbody <- dashboardBody(
   tabItems(
     tabItem("introduction",
+            fluidRow(
+              column(width = 12,
+                     box(title=NULL,
+                         width = NULL,status = 'primary', solidHeader = F,
+                         shiny::uiOutput('page1')
+                     )
+              )
+            ) ,
+            fluidRow(
+              column(width = 6,
+                     box(title=NULL,height = 550,
+                         width = NULL,status = 'primary', solidHeader = F,
+                         h3('Note A'),
+                         HTML('<h4>A good example: <strong>e.g. AT1G01060</strong></h4>'),
+                         tags$br(),
+                         plotOutput("note_profile_plot0")
+                     )
+              ),
+              column(width = 6,
+                     box(title=NULL,height = 550,
+                         width = NULL,status = 'primary', solidHeader = F,
+                         h3('Note B (treat such data with caution)'),
+                         HTML('<h4>If your gene is not expressed in the experiment, you will see an image like: <strong>e.g. AT1G01073</strong></h4>'),
+                         tags$br(),
+                         plotOutput("note_profile_plot1")
+                         
+                     )
+              )
+            ),
+            fluidRow(
+              column(width = 6,
+                     box(title=NULL,height = 550,
+                         width = NULL,status = 'primary', solidHeader = F,
+                         h3('Note C (treat such data with caution)'),
+                         HTML('<h4>For same genes, expression is very low (e.g < 0.25 TPM) and may only be seen in a 
+                              small number of time-points: <strong>e.g. AT1G01115 and AT1G01305</strong></h4>'),
+                         tags$br(),
+                         plotOutput("note_profile_plot2")
+                         )
+              ),
+              column(width = 6,
+                     box(title=NULL,height = 550,
+                         width = NULL,status = 'primary', solidHeader = F,
+                         h3(''),
+                         tags$div('',tags$br(),'',tags$br(),'',tags$br(),'',tags$br(),'',tags$br()),
+                         plotOutput("note_profile_plot3")
+                     )
+              )
+              
+            ) 
             # div(p("Dashboard tab content"))
-            box(width = NULL, status = "primary",
-                uiOutput("page1")
-            )
-    ),
+            # box(width = NULL, status = "primary",
+            #     uiOutput("page1")
+            # )
+            # 
+            
+            ),
     tabItem("profiles",
             fluidRow(
               column(width = 10,
@@ -287,29 +339,29 @@ mainbody <- dashboardBody(
             ),
             fluidRow(
               column(6,
-                     box(width = 12, status = "primary",title = 'Contact us',
+                     box(width = 12, status = "primary",title = h3('Contact us'),
                          # div(class="section level4",h4('Address:')),
-                         div('John W. S. Brown'),
-                         div('j.w.s.brown@dundee.ac.uk'),
-                         div('Plant Sciences Division, College of Life Sciences, University of Dundee'),
-                         div('Cell and Molecular Sciences, The James Hutton Institute'),
-                         div('Invergowrie, Dundee DD2 5DA, Scotland UK')              
+                         HTML('<h4>John W. S. Brown</h4>'),
+                         HTML('<h4>j.w.s.brown@dundee.ac.uk</h4>'),
+                         HTML('<h4>Plant Sciences Division, College of Life Sciences, University of Dundee</h4>'),
+                         HTML('<h4>Cell and Molecular Sciences, The James Hutton Institute</h4>'),
+                         HTML('<h4>Invergowrie, Dundee DD2 5DA, Scotland UK</h4>')              
                      )
               ),
               column(6,
-                     box(width = 12, status = "primary",title = 'Contact us',
+                     box(width = 12, status = "primary",title = h3('Contact us'),
                          # div(class="section level4",h4('Address:')),
-                         div('Runxuan Zhang'),
-                         div('runxuan.zhang@hutton.ac.uk'),
-                         div('Information and Computational Sciences'),
-                         div('The James Hutton Institute'),
-                         div('Invergowrie, Dundee DD2 5DA, Scotland UK')
+                         HTML('<h4>Runxuan Zhang</h4>'),
+                         HTML('<h4>runxuan.zhang@hutton.ac.uk</h4>'),
+                         HTML('<h4>Information and Computational Sciences</h4>'),
+                         HTML('<h4>The James Hutton Institute</h4>'),
+                         HTML('<h4>Invergowrie, Dundee DD2 5DA, Scotland UK</h4>')
                      )
               )
             )
             
     )
-  )
+    )
   )
 
 
@@ -322,5 +374,4 @@ dashboardPage(
   sidebar,
   body = mainbody
 )
-
 
