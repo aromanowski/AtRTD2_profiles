@@ -28,7 +28,7 @@ output:
 
 # **Shiny Dashboard to visualize AtRTD2 expression profiles**
 ## **Mode 1: Shiny Dashboard--Web App**
-We have provide a graphical interface to visualize the gene and transcript expression profiles of RNA-seq data in <u>t</u>ranscripts <u>p</u>er <u>m</u>illion (TPM) for the paper “Rapid and dynamic alternative splicing impacts the Arabidopsis cold response”. The Dashboard can be directly accessed in the Shiny Apps webpage: https://wyguo.shinyapps.io/atrtd2_profile_app/. The research was conducted with BBSRC funding and is a collaboration between the University of Dundee, The James Hutton Institute and the University of Glasgow. The Shiny Dashboard was designed by Wenbin Guo.
+We have provide a graphical interface to visualize the gene and transcript expression profiles of RNA-seq data in <u>t</u>ranscripts <u>p</u>er <u>m</u>illion (TPM) for the paper “Rapid and dynamic alternative splicing impacts the Arabidopsis cold response” (Calixto et al., 2018). The Dashboard can be directly accessed in the Shiny Apps webpage: https://wyguo.shinyapps.io/atrtd2_profile_app/. The research was conducted with BBSRC funding and is a collaboration between the University of Dundee, The James Hutton Institute and the University of Glasgow. The Shiny Dashboard was designed by Wenbin Guo.
 
 Deep RNA-seq data was generated on a diel time-course of 5-week old Arabidopsis Col-0 plants transferred from 20°C to 4°C. Arabidopsis rosettes were harvested every three hours from the last day at 20°C, and the first and fourth day following transfer to 4°C, totaling 26 time-points. Three biological repeats generated over 9.5 billion raw paired-end reads giving around 366 M paired-end reads per time-point. Individual transcripts were quantified in TPM units using Salmon (Patro et al., 2017) and AtRTD2-QUASI as reference transcriptome (Zhang et al., 2017). 
 
@@ -42,7 +42,7 @@ This Dashboard includes three sidebar menus (left-hand side of the webpage):
     + _Profile in TPM:_ A data table of expression values in TPM across the time-series is given. Users can type a gene ID to check individual gene/transcript information.
 3. **Contact us:** contact details.
 
-However, the free service to hold the Dashboard only allows 25 hours of active use per week. In case of not being able to access the service, the same data and Shiny Dashboard are also available for access for R users. The R source code of the Dashboard and a user manual are on Github: https://github.com/wyguo/AtRTD2_profiles.
+The free service to hold the Dashboard only allows 25 hours of active use per week. In case of not being able to access the service, the same data and Shiny Dashboard are also available for access for R users. The R source code of the Dashboard and a user manual are on Github: https://github.com/wyguo/AtRTD2_profiles.
 
 ## **Mode 2: Command lines**
 
@@ -135,7 +135,7 @@ Parameters of function plot_AtRTD2:
 
 
 # **Reference**
-1. Calixto et al. (submitted)  Rapid and dynamic alternative splicing impacts the Arabidopsis cold response.
+1. Calixto,C.P.G. et al. (2018) Rapid and dynamic alternative splicing impacts the Arabidopsis cold response transcriptome. bioRxiv. doi: https://doi.org/10.1101/251876.
 2. Cheng,C.Y. et al. (2017) Araport11: a complete reannotation of the Arabidopsis thaliana reference genome. Plant J., 89, 789–804.
 3. Lamesch,P. et al. (2012) The Arabidopsis Information Resource (TAIR): Improved gene annotation and new tools. Nucleic Acids Res., 40.
 4. Patro,R. et al. (2017) Salmon provides fast and bias-aware quantification of transcript expression. Nat. Methods, 14, 417–419.
